@@ -1,0 +1,30 @@
+{
+  "name": "distributed-wagering-processor",
+  "module": "src/main.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@nestjs/testing": "^12.1.2"
+  },
+  "peerDependencies": {
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@aws-sdk/client-sqs": "^3.1149.0",
+    "@mikro-orm/core": "^7.2.5",
+    "@mikro-orm/migrations": "^7.2.5",
+    "@mikro-orm/postgresql": "^7.2.5",
+    "@nestjs/common": "^12.1.2",
+    "@nestjs/core": "^12.1.2",
+    "@nestjs/platform-express": "^12.1.2",
+    "decimal.js": "^10.6.0",
+    "dotenv": "^18.0.7",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2"
+  },
+  "scripts": {
+    "start": "bun run src/main.ts",
+    "migrate": "bun run scripts/migrate.ts",
+    "test": "bun test"
+  }
+}

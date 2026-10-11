@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: wagering_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: jungle_user
+      POSTGRES_PASSWORD: jungle_password
+      POSTGRES_DB: wagering_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jungle_user -d wagering_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  localstack:
+    image: localstack/localstack:3.0.2
+    container_name: wagering_localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=sqs
+      - AWS_DEFAULT_REGION=sa-east-1
+    volumes:
+      - "./scripts/init-sqs.sh:/etc/localstack/init/ready.d/init-sqs.sh"
+
+volumes:
+  postgres_data:
